@@ -12,3 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+
+from mujoco_playground._src.manipulation.aloha import handover as aloha_handover
+from mujoco_playground._src.manipulation.aloha import single_peg_insertion as aloha_peg
+from mujoco_playground._src.manipulation.aloha import my_single_peg_insertion as my_aloha_peg
