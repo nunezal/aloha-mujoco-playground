@@ -1,4 +1,36 @@
-# MuJoCo Playground
+# ALOHA MuJoCo Playground
+
+This repository is a fork of [Google DeepMind's MuJoCo Playground](https://github.com/google-deepmind/mujoco_playground) with additional custom environments for ALOHA bimanual manipulation tasks.
+
+## Custom Environments
+
+This fork adds the following custom environment:
+
+- **myAlohaSinglePegInsertion**: A custom version of the ALOHA Single Peg Insertion task for bimanual robot manipulation.
+
+## Training the Custom Environment
+
+Run training with PPO:
+
+```bash
+# Activate virtual environment
+source .venv/bin/activate
+
+# Set JAX precision for consistent training
+export JAX_DEFAULT_MATMUL_PRECISION=highest
+
+# Run training with the custom environment
+python learning/train_jax_ppo.py --env_name=myAlohaSinglePegInsertion --num_timesteps=150000000 --use_tb=True
+```
+
+For a quick test with fewer timesteps:
+```bash
+python learning/train_jax_ppo.py --env_name=myAlohaSinglePegInsertion --num_timesteps=10000 --use_tb=True
+```
+
+---
+
+# Original MuJoCo Playground
 
 [![Build](https://img.shields.io/github/actions/workflow/status/google-deepmind/mujoco_playground/ci.yml?branch=main)](https://github.com/google-deepmind/mujoco_playground/actions)
 [![PyPI version](https://img.shields.io/pypi/v/playground)](https://pypi.org/project/playground/)
@@ -71,7 +103,7 @@ For vision-based environments, please refer to the installation instructions in 
 Get started by installing the library and exploring its features! Found a bug? Report it in the issue tracker. Interested in contributing? If you are a developer with robotics experience, we would love your help—check out the [contribution guidelines](CONTRIBUTING.md) for more details.
 
 ### Reproducibility / GPU Precision Issues
-Users with NVIDIA Ampere architecture GPUs (e.g., RTX 30 and 40 series) may experience reproducibility [issues](https://github.com/google-deepmind/mujoco_playground/issues/86) in mujoco_playground due to JAX’s default use of TF32 for matrix multiplications. This lower precision can adversely affect RL training stability. To ensure consistent behavior with systems using full float32 precision (as on Turing GPUs), please run `export JAX_DEFAULT_MATMUL_PRECISION=highest` in your terminal before starting your experiments (or add it to the end of `~/.bashrc`).
+Users with NVIDIA Ampere architecture GPUs (e.g., RTX 30 and 40 series) may experience reproducibility [issues](https://github.com/google-deepmind/mujoco_playground/issues/86) in mujoco_playground due to JAX's default use of TF32 for matrix multiplications. This lower precision can adversely affect RL training stability. To ensure consistent behavior with systems using full float32 precision (as on Turing GPUs), please run `export JAX_DEFAULT_MATMUL_PRECISION=highest` in your terminal before starting your experiments (or add it to the end of `~/.bashrc`).
 
 ## Citation
 
